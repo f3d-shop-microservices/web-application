@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.title }}{% endblock %}
+
+{% block body %}
+
+<div class="container">
+    <div class="page-header">
+        <h1>Product</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-md-5 product-image-large">
+            <img style="width:100%" src="{{ product.image }}"><img>
+        </div>
+        <div class="col-xs-12 col-md-7">
+            <h3 style="text-transform:capitalize">{{ product.title }}</h3>
+            <p>{{ product.description }}</p>
+            <div class="form-horizontal">
+                <h4>{{ product.price|number_format(1, '.', '') }} $</h4>
+                <div class="form-group">
+                    <div class="selectContainer" style="padding:1em">
+                        <select class="form-control" id="qtyAddtest-product-00001">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div>
+                        <a onclick="javascript:handleAddToCartClick('test-product-00001','/cart')" id="addButtontest-product-00001" class="btn btn-primary" style="margin:1em">Add to cart</a>
+                        <a onclick="javascript:handleRemoveFromCartClick('test-product-00001','/cart')" id="removeButtontest-product-00001" class="btn btn-warning" style="visibility:hidden; margin:1em 0">Remove</a>
+                        <a href="{{ path('app_products') }}" class="btn btn-info" style="margin:1em; float:right">Products</a>
+                        <a href="/cart" class="btn btn-success" style="margin:1em; float:right">Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

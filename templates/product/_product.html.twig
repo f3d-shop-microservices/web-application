@@ -1,0 +1,11 @@
+<div class="col-12 col-md-4">
+    <div class="thumbnail product-thumbnail">
+        <a href="{{ path('app_show_product', {id: product.id}) }}"><img src="{{ product.image }}" alt="{{ product.title }}">
+            <div class="product-caption">
+                <h3>{{ product.title }}</h3>
+                <p id="name">{{ product.id }}</p>
+                <h3>{{ product.price|number_format(1, '.', '') }} $</h3>
+            </div>
+        </a>
+    </div>
+</div>

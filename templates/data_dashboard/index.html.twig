@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello DataDashboardController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Data Dashboard</h1>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-3">
+
+                <div>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="{{ path('app_delete_data') }}">Delete All Data</a>
+                        </li>
+                        <li class="list-group-item">
+                            <form action="/createTestData" method="post">
+                                <input type="hidden" name="csrfmiddlewaretoken" value="kgKJn4Xu5rBrRRd7d5FtiF1Fz2sEXAiH3dLdiksgq04m8jYKZJoRgH40wjyoybrS">
+                                <div class="form-group">
+                                    <label>User Count:</label>
+                                    <input type="number" class="form-control" name="userCount" value="10">
+                                </div>
+                                <div class="form-group">
+                                    <label>Product Count:</label>
+                                    <input type="number" class="form-control" name="productCount" value="10">
+                                </div>
+                                <button class="btn btn-primary" type="submit">Create Data</button>
+                            </form>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ path('app_table_data', {'table': 'auth'}) }}">User Auth Data</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ path('app_table_data', {'table': 'product'}) }}">Product Data</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ path('app_table_data', {'table': 'inventory'}) }}">Inventory Data</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ path('app_table_data', {'table': 'order'}) }}">Order Data</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-9 well">
+                <div></div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}

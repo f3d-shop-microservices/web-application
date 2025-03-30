@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserProfileController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Profile</h1>
+        </div>
+
+        <ul class="list-group">
+            <li class="list-group-item">Name : Admin</li>
+            <li class="list-group-item">Id : admin</li>
+        </ul>
+
+        <h3 class="profile-section-header">Contact Details</h3>
+        <ul class="list-group">
+            <li class="list-group-item">Name : 1</li>
+            <li class="list-group-item">Email : 1@test.com</li>
+            <li class="list-group-item">Phone : 0001234567</li>
+        </ul>
+        <h3 class="profile-section-header">Address</h3>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <span>1, 12th cross, 2nd main, </span>
+                <span>Indira Nagar, </span>
+            </li>
+            <li class="list-group-item">
+                <span>Bangalore</span>
+            </li>
+            <li class="list-group-item">
+                <span>KA</span>
+            </li>
+            <li class="list-group-item">
+                <span>IN</span>
+            </li>
+        </ul>
+        <h3 class="profile-section-header">Shipping Addresses</h3>
+        <div class="row">
+
+            <div class="col-md-6">
+                <div class="list-group>">
+                    <div class="list-group-item">
+                        <h4>Address 1</h4>
+                        <div>
+                            <p>2, 12th cross, 2nd main</p>
+                            <p>Indira Nagar</p>
+                            <p>Bangalore</p>
+                            <p>KA</p>
+                            <p>IN</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="list-group>">
+                    <div class="list-group-item">
+                        <h4>Address 2</h4>
+                        <div>
+                            <p>3, 12th cross, 2nd main</p>
+                            <p>Indira Nagar</p>
+                            <p>Bangalore</p>
+                            <p>KA</p>
+                            <p>IN</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MonitoringController!{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="page-header">
+            <h1>Monitoring Dashboard</h1>
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-3">
+
+                <div>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="{{ path('app_system_status', {'layer': 'services'}) }}">Ping Services</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ path('app_system_status', {'layer': 'databases'}) }}">Ping Databases</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{{ path('app_system_status', {'layer': 'web'}) }}">Ping Web</a>
+                        </li>
+                    </ul>
+                </div>
+                <div style="margin:1em 0">
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a href="{{ path('app_registry') }}">Registry Status</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a style="cursor:pointer" onclick="open_monitoring();return false;">Monitoring - Prometheus</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a style="cursor:pointer" onclick="open_tracing();return false;">Tracing - Jaeger</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a style="cursor:pointer" onclick="open_logging();return false;">Logging - Kibana</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a style="cursor:pointer" onclick="open_rabbitmq();return false;">Message Queue</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="col-md-9 well">
+                <div>
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+{% endblock %}
