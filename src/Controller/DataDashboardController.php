@@ -13,7 +13,7 @@ class DataDashboardController extends AbstractController
     public function index(): Response
     {
         return $this->render('data_dashboard/index.html.twig', [
-            'controller_name' => 'DataDashboardController',
+            'controller_name' => 'DataDashboardControllerrrr',
         ]);
     }
 
