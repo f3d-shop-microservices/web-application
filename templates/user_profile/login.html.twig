@@ -8,18 +8,11 @@
             <h1>Login</h1>
         </div>
         <div class="login col-md-offset-1 col-md-6">
-
             <h3>Enter login credentials</h3>
-
-            <form class="form-group" action="/login" method="post">
-                <input type="hidden" name="csrfmiddlewaretoken" value="X7I6xU5l7LmCH5ZhKkR9mZw1q2gyOzMPwdrFWUJPSq4h1DawplKpQw5oeGyHCBwQ">
-                <input class="form-control" type="text" name="username" value="admin" placeholder="user id">
-                <input class="form-control" type="password" name="password" value="password" placeholder="password">
+            {{ form_start(form) }}
+                {{ form_widget(form.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control', 'placeholder': 'Password'}}) }}
                 <button class="btn btn-primary">Submit</button>
-            </form>
-
-            <h4></h4>
-
-
+            {{ form_end(form) }}
     </div>
 {% endblock %}
