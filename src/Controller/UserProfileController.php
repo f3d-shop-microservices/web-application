@@ -21,4 +21,10 @@ class UserProfileController extends AbstractController
     {
         return new Response('Logout success');
     }
+
+    #[Route('/loginForm', name: 'app_user_login')]
+    public function login(): Response {
+        return $this->render('user_profile/login.html.twig', []);
+    }
+
 }
