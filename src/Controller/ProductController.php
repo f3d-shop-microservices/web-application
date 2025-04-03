@@ -16,7 +16,7 @@ class ProductController extends AbstractController
     public function index(HttpClientInterface $client): Response
     {
         try {
-            $response = $client->request('GET', $_ENV['PRODUCT_SVC_HOST'] . '/products/all');
+            $response = $client->request('GET', $_ENV['GATEWAY_SVC_HOST'] . '/api/products');
             $data = $response->toArray();
         } catch (\Exception $e) {
             $this->addFlash('error', 'Failed to fetch products: ' . $e->getMessage());
@@ -32,7 +32,6 @@ class ProductController extends AbstractController
     public function showOne(Request $request, HttpClientInterface $client): Response
     {
         $productId = $request->query->get('id');
-
         try {
             $response = $client->request('GET', $_ENV['PRODUCT_SVC_HOST'] . "/product/$productId");
             $data = $response->toArray();
