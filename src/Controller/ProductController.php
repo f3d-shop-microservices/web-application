@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Throwable;
 
 class ProductController extends AbstractController
 {
@@ -34,18 +35,22 @@ class ProductController extends AbstractController
         $productId = $request->query->get('id');
         try {
             $response = $client->request('GET', $_ENV['GATEWAY_SVC_HOST'] . "/api/product/$productId");
-            $data = $response->toArray();
-        }  catch (\Exception $e) {
-            $data = ['product' => []];
-        }
 
-        if (empty($data['product'])) {
+            if ($response->getStatusCode() !== 200) {
+                return $this->render('product/not_found.html.twig');
+            }
+
+            $data = $response->toArray();
+            if (empty($data['product'])) {
+                return $this->render('product/not_found.html.twig');
+            }
+
+            return $this->render('product/show_product.html.twig', [
+                'product' => $data['product'],
+            ]);
+        }  catch (Throwable $e) {
             return $this->render('product/not_found.html.twig');
         }
-
-        return $this->render('product/show_product.html.twig', [
-            'product' => $data['product'],
-        ]);
     }
 
 }
