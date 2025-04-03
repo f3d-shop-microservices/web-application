@@ -33,7 +33,7 @@ class ProductController extends AbstractController
     {
         $productId = $request->query->get('id');
         try {
-            $response = $client->request('GET', $_ENV['PRODUCT_SVC_HOST'] . "/product/$productId");
+            $response = $client->request('GET', $_ENV['GATEWAY_SVC_HOST'] . "/api/product/$productId");
             $data = $response->toArray();
         }  catch (\Exception $e) {
             $data = ['product' => []];
