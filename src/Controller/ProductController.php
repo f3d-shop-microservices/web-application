@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\AuthorizedHttpClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +15,7 @@ use Throwable;
 class ProductController extends AbstractController
 {
     #[Route('/products', name: 'app_products')]
-    public function index(HttpClientInterface $client): Response
+    public function index(AuthorizedHttpClient $client): Response
     {
         try {
             $response = $client->request('GET', $_ENV['GATEWAY_SVC_HOST'] . '/api/products');
@@ -30,7 +31,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product', name: 'app_show_product')]
-    public function showOne(Request $request, HttpClientInterface $client): Response
+    public function showOne(Request $request, AuthorizedHttpClient $client): Response
     {
         $productId = $request->query->get('id');
         try {
