@@ -46,7 +46,7 @@
                             <span class="caret"></span>
                         </a>
                         <div class="dropdown-menu">
-                            {% if isAuthenticated %}
+                            {% if app.user %}
                                 <a class="dropdown-item" href="{{ path('app_user_profile') }}">Profile</a>
                                 <a class="dropdown-item" href="{{ path('app_user_logout') }}">Sign Out</a>
                             {% else %}
