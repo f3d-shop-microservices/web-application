@@ -27,5 +27,5 @@ class JwtUser implements UserInterface
 
     public function getSalt(): ?string { return null; }
 
-    public function getUsername(): string { return $this->email; } // Для Symfony <6.0
+    public function getUsername(): string { return $this->email; }
 }

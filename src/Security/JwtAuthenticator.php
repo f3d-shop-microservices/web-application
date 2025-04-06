@@ -34,7 +34,6 @@ class JwtAuthenticator extends AbstractAuthenticator
     {
         $jwt = $request->getSession()->get('jwt_token');
 
-        // Извлекаем полезную нагрузку из JWT (без валидации подписи)
         $parts = explode('.', $jwt);
         if (count($parts) !== 3) {
             throw new AuthenticationException('Invalid JWT format');

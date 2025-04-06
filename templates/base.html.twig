@@ -48,7 +48,7 @@
                         <div class="dropdown-menu">
                             {% if app.user %}
                                 <a class="dropdown-item" href="{{ path('app_user_profile') }}">Profile</a>
-                                <a class="dropdown-item" href="{{ path('app_user_logout') }}">Sign Out</a>
+                                <a class="dropdown-item" href="{{ path('app_user_logout') }}">Logout</a>
                             {% else %}
                                 <a class="dropdown-item" href="{{ path('app_user_login') }}">Sign In</a>
                             {% endif %}
