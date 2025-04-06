@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 
@@ -29,15 +30,9 @@ class MonitoringController extends AbstractController
                 $collection = json_decode($healthResponse->getContent(), true);
                 break;
             case 'services':
-                $collection = [];
-                $response = $client->request('GET', $_ENV['GATEWAY_SVC_HOST'] . '/health');
-                $collection[] = $response->toArray();
-
-                $response = $client->request('GET', $_ENV['GATEWAY_SVC_HOST'] . '/api/auth/health');
-                $collection[] = $response->toArray();
-
-                $response = $client->request('GET', $_ENV['GATEWAY_SVC_HOST'] . '/api/product/health');
-                $collection[] = $response->toArray();
+                $collection[] = $this->checkHealth($_ENV['GATEWAY_SVC_HOST'] . '/health', $client);
+                $collection[] = $this->checkHealth($_ENV['GATEWAY_SVC_HOST'] . '/api/auth/health', $client);
+                $collection[] = $this->checkHealth($_ENV['GATEWAY_SVC_HOST'] . '/api/product/health', $client);
                 break;
             case 'databases':
                 $collection = [];
@@ -55,4 +50,18 @@ class MonitoringController extends AbstractController
             'data' => [],
         ]);
     }
+
+    private function checkHealth(string $url, HttpClientInterface $client): array {
+        $collection = [];
+        try {
+            $response = $client->request('GET', $url);
+            if ($response->getStatusCode() === 200) {
+                $collection[] = $response->toArray();
+            }
+        } catch (TransportExceptionInterface $e) {
+
+        }
+        return $collection;
+    }
+
 }
