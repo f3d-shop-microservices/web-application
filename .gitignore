@@ -22,3 +22,6 @@
 ###> symfony/asset-mapper ###
 /public/assets/
 ###< symfony/asset-mapper ###
+
+composer.local.json
+composer.local.dev
