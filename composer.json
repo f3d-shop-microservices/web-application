@@ -46,9 +46,15 @@
         "twig/twig": "^2.12|^3.0",
         "f3d/shop-common": "dev-main"
     },
-    "repositories": [
-        {"type": "vcs", "url": "https://github.com/f3d-shop-microservices/shop-common.git"}
-    ],
+    "repositories": {
+        "f3d/shop-common": {
+            "type": "path",
+            "url": "../packages/shop-common",
+            "options": {
+                "symlink": true
+            }
+        }
+    },
     "config": {
         "allow-plugins": {
             "php-http/discovery": true,

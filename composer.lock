@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3a2b4a6a2347d31f4e64dd6b44d094e3",
+    "content-hash": "5deebeac4a97bfef3b3537a888436356",
     "packages": [
         {
             "name": "composer/semver",
@@ -1372,34 +1372,31 @@
         {
             "name": "f3d/shop-common",
             "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/f3d-shop-microservices/shop-common.git",
-                "reference": "a7423f8a9a68dba41f47ae106b9282fde9ba50f1"
-            },
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/f3d-shop-microservices/shop-common/zipball/a7423f8a9a68dba41f47ae106b9282fde9ba50f1",
-                "reference": "a7423f8a9a68dba41f47ae106b9282fde9ba50f1",
-                "shasum": ""
+                "type": "path",
+                "url": "../packages/shop-common",
+                "reference": "135f71b2eaea7ae6c132098e730506968f198e9d"
             },
             "require": {
                 "php": ">=8.1",
                 "symfony/framework-bundle": "^6.4"
             },
-            "default-branch": true,
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.0.x-dev"
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "Shop\\Common\\": "src/"
                 }
             },
             "description": "Common tools for f3d shop microservices",
-            "support": {
-                "source": "https://github.com/f3d-shop-microservices/shop-common/tree/main",
-                "issues": "https://github.com/f3d-shop-microservices/shop-common/issues"
-            },
-            "time": "2025-04-06T18:55:16+00:00"
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "monolog/monolog",
