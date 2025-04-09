@@ -26,7 +26,7 @@ class MonitoringController extends AbstractController
         $layer = $request->query->get('layer');
         switch ($layer) {
             case 'web':
-                $healthResponse = $healthController->health();
+                $healthResponse = $healthController->index();
                 $collection = json_decode($healthResponse->getContent(), true);
                 break;
             case 'services':
