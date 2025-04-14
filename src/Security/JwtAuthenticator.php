@@ -5,6 +5,7 @@ namespace App\Security;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -32,7 +33,8 @@ class JwtAuthenticator extends AbstractAuthenticator
 
     public function authenticate(Request $request): Passport
     {
-        $jwt = $request->getSession()->get('jwt_token');
+        $session = $request->getSession();
+        $jwt = $session->get('jwt_token');
 
         $parts = explode('.', $jwt);
         if (count($parts) !== 3) {
@@ -42,6 +44,11 @@ class JwtAuthenticator extends AbstractAuthenticator
         $payload = json_decode(base64_decode(strtr($parts[1], '-_', '+/')), true);
         if (!$payload || empty($payload['username'] ?? $payload['email'])) {
             throw new AuthenticationException('Invalid JWT payload');
+        }
+
+        if (isset($payload['exp']) && $payload['exp'] < time()) {
+            $session->invalidate();
+            throw new AuthenticationException('JWT token has expired');
         }
 
         $email = $payload['username'] ?? $payload['email'];
@@ -60,15 +67,7 @@ class JwtAuthenticator extends AbstractAuthenticator
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        $data = [
-            // you may want to customize or obfuscate the message first
-            'message' => strtr($exception->getMessageKey(), $exception->getMessageData()),
-
-            // or to translate this message
-            // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
-        ];
-
-        return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
+        return new RedirectResponse('/loginForm');
     }
 
     // public function start(Request $request, ?AuthenticationException $authException = null): Response

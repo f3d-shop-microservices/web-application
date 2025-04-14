@@ -11,14 +11,15 @@ services:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
-    Shop\Common\Contract\HealthProviderInterface: '@Shop\Common\Service\HealthStatusProvider'
-    Shop\Common\Service\HealthStatusProvider:
+    Shop\Common\Health\HealthProviderInterface: '@Shop\Common\Health\HealthStatusProvider'
+    Shop\Common\Health\HealthStatusProvider:
         arguments:
             $serviceId: '%env(SERVICE_ID)%'
             $serviceHost: '%env(SERVICE_HOST)%'
         autowire: true
         autoconfigure: true
         public: false
+
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

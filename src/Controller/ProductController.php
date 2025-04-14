@@ -2,22 +2,26 @@
 
 namespace App\Controller;
 
+use App\Service\ApiUrlBuilder;
 use App\Service\AuthorizedHttpClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Throwable;
 
 class ProductController extends AbstractController
 {
+    public function __construct(
+        private readonly ApiUrlBuilder $apiUrlBuilder,
+    ) {
+    }
+
     #[Route('/products', name: 'app_products')]
     public function index(AuthorizedHttpClient $client): Response
     {
         try {
-            $response = $client->request('GET', $_ENV['GATEWAY_SVC_HOST'] . '/api/products');
+            $response = $client->request('GET', $this->apiUrlBuilder->build('products'));
             $data = $response->toArray();
         } catch (\Exception $e) {
             $this->addFlash('error', 'Failed to fetch products: ' . $e->getMessage());
@@ -34,7 +38,7 @@ class ProductController extends AbstractController
     {
         $productId = $request->query->get('id');
         try {
-            $response = $client->request('GET', $_ENV['GATEWAY_SVC_HOST'] . "/api/product/$productId");
+            $response = $client->request('GET', $this->apiUrlBuilder->build("product/$productId"));
 
             if ($response->getStatusCode() !== 200) {
                 return $this->render('product/not_found.html.twig');

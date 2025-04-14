@@ -9,7 +9,6 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-
 class MonitoringController extends AbstractController
 {
     #[Route('/monitor', name: 'app_monitoring')]
@@ -30,9 +29,10 @@ class MonitoringController extends AbstractController
                 $collection = json_decode($healthResponse->getContent(), true);
                 break;
             case 'services':
-                $collection[] = $this->checkHealth($_ENV['GATEWAY_SVC_HOST'] . '/health', $client);
-                $collection[] = $this->checkHealth($_ENV['GATEWAY_SVC_HOST'] . '/api/auth/health', $client);
-                $collection[] = $this->checkHealth($_ENV['GATEWAY_SVC_HOST'] . '/api/product/health', $client);
+                $collection = [];
+//                $collection[] = $this->checkHealth($_ENV['NGINX_SVC_HOST'] . '/health', $client);
+//                $collection[] = $this->checkHealth($_ENV['NGINX_SVC_HOST'] . '/api/auth/health', $client);
+//                $collection[] = $this->checkHealth($_ENV['NGINX_SVC_HOST'] . '/api/product/health', $client);
                 break;
             case 'databases':
                 $collection = [];
@@ -54,7 +54,10 @@ class MonitoringController extends AbstractController
     private function checkHealth(string $url, HttpClientInterface $client): array {
         $collection = [];
         try {
-            $response = $client->request('GET', $url);
+            $options['verify_peer'] = false;
+            $options['verify_host'] = false;
+
+            $response = $client->request('GET', $url, $options);
             if ($response->getStatusCode() === 200) {
                 $collection[] = $response->toArray();
             }

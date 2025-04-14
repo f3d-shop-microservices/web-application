@@ -21,6 +21,9 @@ class AuthorizedHttpClient
             $options['headers']['Authorization'] = 'Bearer ' . $token;
         }
 
+        $options['verify_peer'] = false;
+        $options['verify_host'] = false;
+
         return $this->httpClient->request($method, $url, $options);
     }
 }

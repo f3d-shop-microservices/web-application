@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\ApiUrlBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -14,6 +15,12 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class UserProfileController extends AbstractController
 {
+
+    public function __construct(
+        private readonly ApiUrlBuilder $apiUrlBuilder,
+    ) {
+    }
+
     #[Route('/profile', name: 'app_user_profile')]
     public function index(): Response
     {
@@ -49,18 +56,20 @@ class UserProfileController extends AbstractController
             $data = $form->getData();
 
             try {
-                $response = $httpClient->request('POST', $_ENV['GATEWAY_SVC_HOST'] . '/api/login', [
+                $response = $httpClient->request('POST', $this->apiUrlBuilder->build('login'), [
                     'json' => [
                         'email' => $data['email'],
                         'password' => $data['password'],
                     ],
+                    'verify_peer' => false,
+                    'verify_host' => false,
                 ]);
 
                 if ($response->getStatusCode() === 200) {
                     $token = $response->toArray()['token'];
                     $session->set('jwt_token', $token);
 
-                    return $this->redirectToRoute('app_home'); // или куда-то ещё
+                    return $this->redirectToRoute('app_home');
                 } else {
                     $error = 'Неверные данные для входа';
                 }
