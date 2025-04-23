@@ -32,7 +32,7 @@ class InitEnvLocalCommand extends Command
 
     private function initLocalEnvFile(SymfonyStyle $io): void
     {
-        $distFile = $this->envFile . '.dist';
+        $distFile = '.env.dist';
         $targetFile = $this->envFile;
 
         if (!file_exists($distFile)) {
